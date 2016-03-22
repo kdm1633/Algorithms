@@ -1,4 +1,4 @@
-class Substitute
+public class Substitute
 {	
     public static int getValue(String key, String code) {
         String dval = "";
