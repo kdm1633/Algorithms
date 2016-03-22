@@ -14,7 +14,7 @@ public class Substitute
         
 		result = key.indexOf(dval.charAt(0));
         
-        for(int i=1	; i < dval.length(); i++)
+        for(int i=1; i < dval.length(); i++)
 			result = (result * 10) + key.indexOf(dval.charAt(i));
         
         return result;
