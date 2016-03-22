@@ -1,21 +1,21 @@
 public class TurretDefense {
-    public static int firstMiss(int[] xs, int[] ys, int[] times) {
-        int x=0, y=0, time=0;
-        
-        for(int i=0; i < xs.length; i++) {
-            time += (Math.abs(xs[i] - x) + Math.abs(ys[i] - y));
-
+	public static int firstMiss(int[] xs, int[] ys, int[] times) {
+	        int x=0, y=0, time=0;
+	        
+	        for(int i=0; i < xs.length; i++) {
+	        	time += (Math.abs(xs[i] - x) + Math.abs(ys[i] - y));
+		
 			if(time <= times[i])
 				time = times[i];
-            else
-                return i;
-
-            x = xs[i];
-            y = ys[i];
-        }
-        
+	            	else
+	            		return i;
+	
+	        	x = xs[i];
+	        	y = ys[i];
+	        }
+	        
 		return -1;
-    }
+	}
 
 	public static void main(String[] args) {
 		System.out.println(firstMiss(new int[]{3,5,6}, new int[]{7,5,6}, new int[]{11,15,16}));
