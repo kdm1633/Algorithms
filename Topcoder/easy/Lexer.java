@@ -25,13 +25,10 @@ public class Lexer {
 	}
 
 	public static void main(String[] args) {
-		String[] a = tokenize(new String[]{"ab","aba","A"}, "ababbbaAab");
-
-		System.out.println(Arrays.toString(a));
-
-		a = tokenize(new String[]{"a","a","aa","aaa","aaaa","aaaaa","aa"}, "aaaaaaaaaaaaaaaaaaaaaaaaa");
-
-		System.out.println(Arrays.toString(a));
+		System.out.println(Arrays.toString(tokenize(new String[]{"ab","aba","A"}, "ababbbaAab")));
+		
+		System.out.println(Arrays.toString(tokenize(new String[]{"a","a","aa","aaa","aaaa","aaaaa","aa"}, 
+		"aaaaaaaaaaaaaaaaaaaaaaaaa")));
 	}
 }
 
