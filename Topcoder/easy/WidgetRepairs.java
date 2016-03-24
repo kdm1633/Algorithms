@@ -1,8 +1,8 @@
 public class WidgetRepairs {
-    public static int days(int[] arrivals, int numPerDay) {
+	public static int days(int[] arrivals, int numPerDay) {
 		int n = arrivals.length, rest=0, opDay=0, i=0;
-
-        while(i < n || rest > 0) {
+		
+		while(i < n || rest > 0) {
 			if(i < n) rest += arrivals[i++];
 			
 			if(rest == 0) continue;
@@ -11,9 +11,9 @@ public class WidgetRepairs {
 
 			opDay++;
 		}
-        
+		
 		return opDay;
-    }
+	}
 
 	public static void main(String[] args) {
 		System.out.println(days(new int[]{ 10, 0, 0, 4, 20 }, 8));
