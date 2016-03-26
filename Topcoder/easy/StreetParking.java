@@ -8,7 +8,7 @@ public class StreetParking {
                 if(i-1 >= 0 && street.charAt(i-1) == 'S') continue;
                 if(i+1 < len && (street.charAt(i+1) == 'B' || street.charAt(i+1) == 'S')) continue;
 				if(i+2 < len && street.charAt(i+2) == 'B') continue;
-				tot++;
+					tot++;
             }
         }
         
