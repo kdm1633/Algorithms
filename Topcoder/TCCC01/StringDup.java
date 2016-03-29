@@ -16,7 +16,7 @@ public class StringDup
 				hmap.replace(param0.charAt(i), hmap.get(param0.charAt(i))+1);
 		}
 
-		for(Map.Entry<Character,Integer> entry: hmap.entrySet()) {
+		for(Map.Entry<Character,Integer> entry : hmap.entrySet()) {
 			if(entry.getValue() >= max) {
 				max = entry.getValue();
 				ch = entry.getKey();
