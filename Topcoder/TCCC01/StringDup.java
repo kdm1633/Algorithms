@@ -4,7 +4,7 @@ import java.util.HashMap;
 public class StringDup
 {
 	public static char getMax(String param0) {
-                // Map elements are inserted as a linked list.
+                // Map elements are inserted as linked list elements.
 		HashMap<Character, Integer> hmap = new HashMap<Character, Integer>();
 		int max=0;
 		char ch=0;
