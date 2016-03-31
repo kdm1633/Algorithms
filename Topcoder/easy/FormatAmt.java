@@ -17,3 +17,6 @@ public class FormatAmt {
 		System.out.println(amount(1000,1));
 	}
 }
+
+// References
+// https://github.com/luiseduardo1/Topcoder/blob/master/SRM%20149/DIV%202/FormatAmt.java
