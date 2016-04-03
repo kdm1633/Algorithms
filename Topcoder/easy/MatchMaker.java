@@ -48,8 +48,8 @@ public class MatchMaker {
 				
 		return res;
 	}
-    
-    public static void main(String[] args) {
+	
+	public static void main(String[] args) {
     	System.out.println(Arrays.toString(getBestMatches(new String[]{
 		"BOB M M A", "FRED M F A", "JIM F M A", "DAISY F F A"}, "BOB", 1)));
 	System.out.println(Arrays.toString(getBestMatches(new String[]{
