@@ -1,18 +1,18 @@
 import java.util.Arrays;
 
 public class MatchMaker {
-    public static String[] getBestMatches(String[] members, String currentUser, int sf) {
+	public static String[] getBestMatches(String[] members, String currentUser, int sf) {
 		if(members.length < 2) return new String[0];
-
-        int len = members.length;
+		
+		int len = members.length;
 		int XsLen = members[0].split(" ").length - 3;
 		int cIdx=0;
 		int resLen=0;
 		
 		int[] idx = new int[XsLen+1];
-        int[][] sfs = new int[XsLen+1][len];
+		int[][] sfs = new int[XsLen+1][len];
 		String[] user = {""};
-
+		
 		for(int i=0; i < len; i++) {
 			if(members[i].startsWith(currentUser)) {
 				user = members[i].split(" ");
@@ -20,33 +20,33 @@ public class MatchMaker {
 				break;
 			}
 		}
-        
-        for(int i=0; i < len; i++) {
+		
+		for(int i=0; i < len; i++) {
 			int msf=0;
-
+			
 			String[] m = members[i].split(" ");
-            
-            if(!m[1].equals(user[2]) || i == cIdx)
-                continue;
-            else {
-                for(int j=3; j < m.length; j++)
-                    if(m[j].equals(user[j]))
-                       msf++;
-                
-                if(msf >= sf) {
-					sfs[msf][idx[msf]++] = i;
-					resLen++;
-				}
-            }
-        }
-
+			
+			if(!m[1].equals(user[2]) || i == cIdx)
+				continue;
+			else {
+				for(int j=3; j < m.length; j++)
+					if(m[j].equals(user[j]))
+						msf++;
+					
+					if(msf >= sf) {
+						sfs[msf][idx[msf]++] = i;
+						resLen++;
+					}
+			}
+		}
+		
 		String[] res = new String[resLen];
-        
-        for(int i=XsLen, k=0; i > 0; i--)
+		
+		for(int i=XsLen, k=0; i > 0; i--)
 			for(int j=0; j < idx[i]; j++)
 				res[k++] = members[sfs[i][j]].substring(0, members[sfs[i][j]].indexOf(' '));
-        
-        return res;
+				
+		return res;
     }
 	
 	public static void main(String[] args) {
