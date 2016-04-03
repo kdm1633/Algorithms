@@ -50,15 +50,15 @@ public class MatchMaker {
 	}
 	
 	public static void main(String[] args) {
-    	System.out.println(Arrays.toString(getBestMatches(new String[]{
-		"BOB M M A", "FRED M F A", "JIM F M A", "DAISY F F A"}, "BOB", 1)));
-	System.out.println(Arrays.toString(getBestMatches(new String[]{
-		"A F F A", "B M F A", "C F M A", "D M M A"}, "A", 1)));
-	System.out.println(Arrays.toString(getBestMatches(new String[]{
-		"BETTY F M A C", "TOM M F A C", "SUE F M D C", "ELLEN F M A C", 
-		"JOE M F A C", "ED M F A C", "SALLY F M C C", "MARGE F M A C"}, "MARGE", 2)));
-	System.out.println(Arrays.toString(getBestMatches(new String[]	{
-		"BETTY F M A A C C", "TOM M F A D C A", "SUE F M D D D D", "ELLEN F M A A C A", 
-		"JOE M F A A C A", "ED M F A D D A", "SALLY F M C D A B", "MARGE F M A A C C"}, "JOE", 1)));
-    }
+		System.out.println(Arrays.toString(getBestMatches(new String[]{
+			"BOB M M A", "FRED M F A", "JIM F M A", "DAISY F F A"}, "BOB", 1)));
+		System.out.println(Arrays.toString(getBestMatches(new String[]{
+			"A F F A", "B M F A", "C F M A", "D M M A"}, "A", 1)));
+		System.out.println(Arrays.toString(getBestMatches(new String[]{
+			"BETTY F M A C", "TOM M F A C", "SUE F M D C", "ELLEN F M A C", 
+			"JOE M F A C", "ED M F A C", "SALLY F M C C", "MARGE F M A C"}, "MARGE", 2)));
+		System.out.println(Arrays.toString(getBestMatches(new String[]	{
+			"BETTY F M A A C C", "TOM M F A D C A", "SUE F M D D D D", "ELLEN F M A A C A", 
+			"JOE M F A A C A", "ED M F A D D A", "SALLY F M C D A B", "MARGE F M A A C C"}, "JOE", 1)));
+	}
 }
