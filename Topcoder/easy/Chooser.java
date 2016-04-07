@@ -6,7 +6,7 @@ public class Chooser
 
 		int sum = 0, cnt=0;
 
-		for (int i=0; i < easy.length; i++) {//60, 75
+		for (int i=0; i < easy.length; i++) {
 			for (int j=0; j < middle.length; j++) {
 				for (int k=0; k < hard.length; k++) {
 					sum = easy[i] + middle[j] + hard[k];
