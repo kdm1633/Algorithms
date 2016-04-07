@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class DivisorDigits
 {
 	public static int howMany(int number) {
