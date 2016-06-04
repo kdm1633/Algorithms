@@ -18,11 +18,11 @@ public class NumberGuessing
 		for (int i : guesses) {
 			guessSet.put(i, false);
 		}
-		return guess(range, guessSet, numLeft + 1).guess;
+		return guess(range, guessSet, numLeft).guess;
 	}
 
 	GuessResult guess(int range, TreeMap<Integer, Boolean> guesses, int numLeft) {
-		if (numLeft == 1) {
+		if (numLeft == 0) {
 			int best = guessLast(range, guesses);
 			guesses.put(best, true);
 			Map<Integer, Integer> result = calculateProbs(range, guesses);
@@ -100,8 +100,9 @@ public class NumberGuessing
 		System.out.println(n.bestGuess(1000, new int[]{500}, 1));
 		System.out.println(n.bestGuess(1000000, new int[]{}, 1));
 		System.out.println(n.bestGuess(1000, new int[]{}, 2));
-		System.out.println(n.bestGuess(20, new int[]{18,13,8,3}, 0));
-		System.out.println(n.bestGuess(10, new int[]{}, 6));
+		System.out.println(n.bestGuess(100, new int[]{27,80}, 1));
+		System.out.println(n.bestGuess(20, new int[]{18,13,8,3}, 0)); //2
+		System.out.println(n.bestGuess(10, new int[]{}, 6)); //9
 	}
 }
 
