@@ -69,7 +69,7 @@ public class Escape
 		while(!q.isEmpty()) {
 			node n = q.poll();
 
-			if(n.x==500 && n.y==500) {min = dist[500][500];}
+			if(n.x==500 && n.y==500) min = dist[500][500];
 
 			for(int i=0; i < 4; i++) {
 				int x = n.x + dx[i];
