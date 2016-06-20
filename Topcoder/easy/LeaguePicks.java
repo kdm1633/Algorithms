@@ -5,7 +5,7 @@ public class LeaguePicks
 	public int[] returnPicks(int pos, int fr, int picks) {
 		int cnt=0;
 
-		for(int i=pos, j=0, sw=1; i <= picks; i += (sw==1) ? (fr-pos)*2+1 : pos*2-1, sw*=-1, cnt++) {}
+		for(int i=pos, sw=1; i <= picks; i += (sw==1) ? (fr-pos)*2+1 : pos*2-1, sw*=-1, cnt++) {}
 
 		int[] res = new int[cnt];
 
