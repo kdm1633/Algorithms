@@ -2,19 +2,21 @@ import java.util.Arrays;
 
 public class DiskSpace {
 	public int minDrives(int[] used, int[] total) {
-		int i, len = used.length, tot=0, res=0;
+		int len = used.length, tot=0;
 		
-		for(i=0; i < len; i++)
+		for(int i=0; i < len; i++)
 			tot += used[i];
 		
 		Arrays.sort(total);
 		
-		for(i=len-1; tot > 0 && i >= 0; i--, res++)
+		for(int i=len-1; i >= 0; i--) {
 			tot -= total[i];
+			if(tot <= 0) return len-i;
+		}
 		
-		return res;
+		return len;
 	}
-
+	
 	public static void main(String[] args) {
 		DiskSpace d = new DiskSpace();
 		System.out.println(d.minDrive(new int[]{300,525,110}, new int[]{350,600,115}));
