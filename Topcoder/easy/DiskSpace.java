@@ -1,7 +1,7 @@
 import java.util.Arrays;
 
 public class DiskSpace {
-	public int minDrive(int[] used, int[] total) {
+	public int minDrives(int[] used, int[] total) {
 		int i, len = used.length, tot=0, res=0;
 		
 		for(i=0; i < len; i++)
