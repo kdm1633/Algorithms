@@ -9,7 +9,7 @@ public class BearBall
 
 	public int countThrows(int[] x, int[] y) {
 		int n = x.length;
-		int res = n * (n-1) *2;
+		int res = n*(n-1)*2;
 
 		for (int i=0; i < n; i++) {
 			HashSet<Point> set = new HashSet<Point>();
@@ -24,7 +24,17 @@ public class BearBall
 				set.add(new Point(dx,dy));
 			}
 
-			if(set.size()==1) return n*(n-1)*(n+1)/3;
+			if(set.size()==1) {
+				res = 0;
+				for (int a=0; a < n; a++) {
+					for (int b=0; b < n; b++) {
+						if(a==b) continue;
+						res += Math.abs(a-b);
+					}
+				}
+				return res;
+			}
+
 			res -= set.size();
 		}
 
@@ -36,7 +46,7 @@ public class BearBall
 		System.out.println(b.countThrows(new int[]{1,4,2}, new int[]{1,10,7}));
 		System.out.println(b.countThrows(new int[]{0,0,0,1,1}, new int[]{0,1,2,0,1}));
 		System.out.println(b.countThrows(new int[]{5,7,9,11}, new int[]{4,3,2,1}));
-		System.out.println(b.countThrows(new int[]{10,10,50,50,90,90}, new int[]{5,17,5,17,5,17}));
+		System.out.println(b.countThrows(new int[]{10,10,50,50,90,	0}, new int[]{5,17,5,17,5,17}));
 		System.out.println(b.countThrows(new int[]{-100, -90, -80, -70, -85, -90, 0, 20}, new int[]{-5, -8, -13, -21, -13, -13, -13, -69}));
 	}
 }
