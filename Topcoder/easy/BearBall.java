@@ -46,7 +46,7 @@ public class BearBall
 		System.out.println(b.countThrows(new int[]{1,4,2}, new int[]{1,10,7}));
 		System.out.println(b.countThrows(new int[]{0,0,0,1,1}, new int[]{0,1,2,0,1}));
 		System.out.println(b.countThrows(new int[]{5,7,9,11}, new int[]{4,3,2,1}));
-		System.out.println(b.countThrows(new int[]{10,10,50,50,90,	0}, new int[]{5,17,5,17,5,17}));
+		System.out.println(b.countThrows(new int[]{10,10,50,50,90,0}, new int[]{5,17,5,17,5,17}));
 		System.out.println(b.countThrows(new int[]{-100, -90, -80, -70, -85, -90, 0, 20}, new int[]{-5, -8, -13, -21, -13, -13, -13, -69}));
 	}
 }
