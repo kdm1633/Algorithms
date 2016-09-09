@@ -37,7 +37,6 @@ public class Robot {
 						if (floor[ny].charAt(nx)=='X') continue;
 						if (floor[cy].charAt(nx)=='X' || floor[ny].charAt(cx)=='X') continue;
 
-						//System.out.println(""+nx+" "+ny+" "+cx+" "+cy);
 						np[nx][ny]+=cp[cx][cy]/8;
 						nmoves++;
 					}
