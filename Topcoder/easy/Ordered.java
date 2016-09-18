@@ -1,8 +1,5 @@
 public class Ordered {
 	public String getType(int[] values) {
-		for(int i=0; i < values.length; i++) {
-			
-		}
 		boolean nonasc=false,nondes=false,repeat=false;
 		String res = "";
 		
