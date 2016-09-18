@@ -1,10 +1,7 @@
 public class Ordered {
 	public String getType(int[] values) {
-		boolean nonasc=false,nondes=false,repeat=false;
+		boolean nonasc=false, nondes=false, repeat=false;
 		String res = "";
-		
-		if(values[0] < values[1]) res = "ASCENDING ";
-		else if(values[0] > values[1]) res = "DESCENDING ";
 		
 		for (int i=1; i < values.length; i++) {
 			if(values[i-1] < values[i]) nondes = true;
@@ -18,8 +15,7 @@ public class Ordered {
 			if(nonasc) res = "NONASCENDING ";
 			else if(nondes) res = "NONDESCENDING ";
 			
-			int cnt = 1;
-			int max = 1;
+			int cnt=1, max=1;
 			for (int i=1; i < values.length; i++) {
 				if(values[i-1] == values[i]) cnt++;
 				else {
@@ -28,14 +24,19 @@ public class Ordered {
 				}
 			}
 			if(max < cnt) max = cnt;
+			
 			res += max;
 		}
 		else {
+			if(values[0] < values[1]) res = "ASCENDING ";
+			else if(values[0] > values[1]) res = "DESCENDING ";	
+			
 			int sum=0;
-			for (int i=0; i < values.length; i++) {
+			for (int i=0; i < values.length; i++)
 				sum += values[i];
-			}
+			
 			int g = gcd(sum,values.length);
+			
 			if(g!=0) res += sum/g + "/" + values.length/g;
 		}
 		
