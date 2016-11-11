@@ -134,9 +134,8 @@ public class Optimizer
 					
 					switch (e1.type) {
 						case sum:
-							for(expr e2 : e1.lval) {
+							for(expr e2 : e1.lval)
 								r.lval.add(e2);
-							}
 							break;
 						default:
 							r.lval.add(e1);
@@ -151,9 +150,8 @@ public class Optimizer
 					
 					switch (e1.type) {
 						case prod:
-							for(expr e2 : e1.lval) {
+							for(expr e2 : e1.lval)
 								r.lval.add(e2);
-							}
 							break;
 						default:
 							r.lval.add(e1);
@@ -171,15 +169,13 @@ public class Optimizer
 		switch (e.type) {
 			case sum:
 				s += e.lval.size()-1;
-				for(expr e1 : e.lval) {
+				for(expr e1 : e.lval)
  					s += nops(e1);
-				}
 				break;
 			case prod:
 				s += 10*(e.lval.size()-1);
-				for(expr e2 : e.lval) {
+				for(expr e2 : e.lval)
 					s += nops(e2);
-				}
 				break;
 		}
 		
@@ -193,9 +189,9 @@ public class Optimizer
 				s += expression.charAt(i);
 		
 		i=0;
-		expr r = expr1();	// Parsing
+		expr r = expr1();		// Parsing
 		expr r2 = optimize(r);	// Optimizing
-		return nops(r2);	// Calculating
+		return nops(r2);		// Calculating
 	}
 	
 	public static void main(String[] args) {
