@@ -34,7 +34,6 @@ public class CheatCode
 		
 		return res;
 	}
-
 		
 	public static void main(String[] args) {
 		CheatCode c = new CheatCode();
