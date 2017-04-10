@@ -2,7 +2,7 @@ import java.util.Arrays;
 
 public class MissingLetters
 {
-	String getMissingLetters(String sentence) {
+	public String getMissingLetters(String sentence) {
 		sentence = sentence.toLowerCase();
 
 		String res = "";
