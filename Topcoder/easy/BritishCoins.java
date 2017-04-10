@@ -3,13 +3,7 @@ import java.util.Arrays;
 public class BritishCoins
 {
 	public int[] coins(int pence) {
-		int[] res = new int[3];
-
-		res[0] = pence/240; pence %= 240;
-		res[1] = pence/12; pence %= 12;
-		res[2] = pence;
-
-		return res;
+		return new int[]{pence/240, ((pence%240)/12), ((pence%240)%12)};
 	}
 
 	public static void main(String[] args) {
