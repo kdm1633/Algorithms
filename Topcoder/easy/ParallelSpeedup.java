@@ -5,11 +5,9 @@ public class ParallelSpeedup
 		for (int i=2, j=0, d=1; ; i++, j += d++) {
 			int cycle = (k%i==0) ? k/i : k/i+1;
 			int time = cycle + (j+d)*overhead;
-			if(time >= min) break;
+			if(time >= min) return num;
 			num = i; min = time;
 		}
-
-		return num;
 	}
 
 	public static void main(String[] args) {
