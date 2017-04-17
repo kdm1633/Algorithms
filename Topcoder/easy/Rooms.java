@@ -16,7 +16,6 @@ public class Rooms
 					}
 				}
 			}
-
 			set = s2;
 		}
 
