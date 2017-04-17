@@ -20,7 +20,7 @@ public class GasStations
 			}
 		}
 
-		// 1. Searching a lowest-price station at the starting point
+		// 1. Searching the lowest-price station at the starting point
 		for (int i=0; i < N; i++) {
 			if(dist[i] > tank*mpg) break;
 			if(price[i] < lowerPrice) {lowerPrice = price[i]; idx=i;}
@@ -30,7 +30,7 @@ public class GasStations
 
 		LOOP:
 		for (int i=idx; i < N; i = idx) {
-			// 2. Searching a lowest-price station
+			// 2. Searching the first lowest-price station
 			for (int j=i+1; j<N && dist[j]<=dist[i]+tankSize*mpg; j++) {
 				if(price[j] < price[i]) {
 					if(dist[i]+tank*mpg >= dist[j]) tank -= (dist[j]-dist[i])/mpg;
@@ -48,7 +48,7 @@ public class GasStations
 				break;
 			}
 
-			// 4. Searching a second lowest-price station
+			// 4. Searching the second lowest-price station
 			lowerPrice = price[i+1]; idx = i+1;
 			for (int j=i+2; j<N && dist[j]<=dist[i]+tankSize*mpg; j++)
 				if(price[j] < lowerPrice) {lowerPrice = price[j]; idx = j;}
