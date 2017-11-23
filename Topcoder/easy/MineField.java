@@ -24,9 +24,8 @@ public class MineField
 			for (int k=0; k < 8; k++) {
 				int r1 = r[i]+dy[k];
 				int c1 = c[i]+dx[k];
-				if (r1>=0 && c1>=0 && r1<9 && c1<9 && board[r1][c1]!='M') {
+				if (r1>=0 && c1>=0 && r1<9 && c1<9 && board[r1][c1]!='M')
 					board[r1][c1]++;
-				}
 			}
 		}
 
