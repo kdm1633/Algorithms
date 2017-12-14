@@ -5,7 +5,7 @@ public class ShuffleMethod
 	int n,f,cnt;
 	boolean[] fixed, used;
 	int[] ts;
-	int[] sn;					// sn: selected Numbers
+	int[] sn;					// sn: selected numbers
 	int[][] pn;					// pn: possible numbers
 	int[] idx;
 	
