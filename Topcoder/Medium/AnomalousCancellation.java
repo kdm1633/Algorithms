@@ -2,7 +2,7 @@ public class AnomalousCancellation
 {
 	public String reducedFraction(int numerator, int denominator) {
 		String[] nleft = new String[16]; String[] ngone = new String[16];
-		String[] dleft = new String[16]; String[] dgone = new String[16];;
+		String[] dleft = new String[16]; String[] dgone = new String[16];
 
 		int bestn = numerator, bestd = denominator;
 		String num = String.valueOf(numerator), den = String.valueOf(denominator);
