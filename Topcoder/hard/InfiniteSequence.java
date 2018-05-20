@@ -30,3 +30,5 @@ public class InfiniteSequence
 		System.out.println(i.calc(1,1000000,1000000));
 	}
 }
+
+// https://community.topcoder.com/stat?c=problem_solution&cr=296080&rd=13504&pm=9837
