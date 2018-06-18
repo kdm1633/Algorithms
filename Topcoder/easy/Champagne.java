@@ -1,7 +1,7 @@
 public class Champagne
 {
 	public String howMuch(int height, int glass, int units) {
-		int B = 1 << height;
+		int B = 1 << height-1;
 		int i=0,j=0,n,d;
 		int[][] amount = new int[21][21];
 
