@@ -4,25 +4,24 @@ public class GreedyChange
 {
 	public int smallest(int[] denoms) {
 		Arrays.sort(denoms);
+		
+		int max = denoms[denoms.length-1]*2;
+		int[] mins = new int[max+1];
 
-		int[] mins = new int[1000001];
-
-		for (int i=1; i<=1000000; i++)
+		for (int i=1; i<=max; i++)
 			mins[i] = 9999999;
 
-		for (int i=1; i <= 1000000; i++) {
-			for (int j=0; j < denoms.length; j++) {
+		for (int i=1; i <= max; i++)
+			for (int j=0; j < denoms.length; j++)
 				if(denoms[j] <= i)
 					mins[i] = Math.min(mins[i], 1 + mins[i-denoms[j]]);
-			}
-		}
 
 		int index=0;
 
-		for (int i=1; i <= 1000000; i++) {
+		for (int i=1; i <= max; i++) {
 			while (1+index < denoms.length && denoms[1+index]<=i)
 				index++;
-			
+
 			if (mins[i] != 1+mins[i-denoms[index]])
 				return i;
 		}
