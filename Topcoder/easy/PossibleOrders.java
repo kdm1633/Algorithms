@@ -115,7 +115,7 @@ public class PossibleOrders
 		}
 		
 		// Subtracting equal elements from N
-		for (int i=0; i < str.length && str[i].length()!=1; i++)
+		for (int i=0; i<str.length && str[i].length()!=1; i++)
 			N -= str[i].split(" ").length-2;
 
 		for (int i=1; i <= N/2; i++) {
