@@ -63,7 +63,7 @@ public class PossibleOrders
 				String s1 = " " + n[0] + " ";
 				String s2 = " " + n[1] + " ";
 				
-				if(s1.contains(s2)) continue;
+				if(s1.equals(s2)) continue;
 				
 				for (int j=0; j < str.length; j++) {
 					if(str[j].contains(s1) && str[j].contains(s2))
