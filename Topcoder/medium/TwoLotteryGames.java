@@ -21,3 +21,5 @@ public class TwoLotteryGames {
 		System.out.println(t.getHigherChanceGame(8,4,2));
 	}
 }
+
+// http://www.topcoder.com/tc?module=Static&d1=match_editorials&d2=srm418
