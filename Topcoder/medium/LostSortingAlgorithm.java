@@ -57,10 +57,10 @@ public class LostSortingAlgorithm {
 				@Override
 				public int compare(String s1, String s2) {
 					for (int i=0; i < m; i++) {
-					if (s1.charAt(rank[i]) < s2.charAt(rank[i]))
-						return -1;
-					else if (s1.charAt(rank[i]) > s2.charAt(rank[i]))
-						return 1;
+						if (s1.charAt(rank[i]) < s2.charAt(rank[i]))
+							return -1;
+						else if (s1.charAt(rank[i]) > s2.charAt(rank[i]))
+							return 1;
 					}
 					return 0;
 				}
