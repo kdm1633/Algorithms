@@ -18,7 +18,7 @@ public class Circuits
 		for(int k=0; k<N; k++)
 		for(int i=0; i<N; i++)
 		for(int j=0; j<N; j++)
-			if(cost[i][j]<cost[i][k]+cost[k][j] && cost[i][k]!=0 && cost[k][j]!=0)
+			if(cost[i][k]!=0 && cost[k][j]!=0 && cost[i][j]<cost[i][k]+cost[k][j])
 				cost[i][j] = cost[i][k]+cost[k][j];
 		
 		int ans = 0;
