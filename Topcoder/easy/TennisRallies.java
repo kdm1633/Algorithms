@@ -1,30 +1,24 @@
 public class TennisRallies
 {
-	int count, len, a;
-	String[] fb;
+	int rec(int index, int numLength, String curr, int allowed, String[] forbidden) {
+		if(index == numLength) return 1;
 
-	void tryRallies(String cur) {
-		if (cur.length() < len) {
-			tryRallies(cur+"c");
-			tryRallies(cur+"d");
-			return;
+		int ret = 0;
+		for (char stroke = 'c'; stroke <= 'd'; stroke++) {
+			int newAllowed = allowed;
+			String newCurr = curr + stroke;
+			for (int forbIndex = 0; forbIndex < forbidden.length; forbIndex++)
+				if(newCurr.endsWith(forbidden[forbIndex])) newAllowed--;
+
+			if(newAllowed <= 0) continue;
+			ret += rec(index+1, numLength, newCurr, newAllowed, forbidden);
 		}
 
-		int c=0;
-		for (int i=0; i < fb.length; i++) {
-			int idx=0;
-			while (cur.indexOf(fb[i], idx) != -1) {
-				idx = cur.indexOf(fb[i], idx)+1;
-				c++;
-			}
-		}
-		if(c < a) count++;
+		return ret;
 	}
 
 	public int howMany(int numLength, String[] forbidden, int allowed) {
-		count=0; len = numLength; fb = forbidden; a = allowed;
-		tryRallies("");
-		return count;
+		return rec(0, numLength, "", allowed, forbidden);
 	}
 
 	public static void main(String[] args) {
@@ -38,4 +32,4 @@ public class TennisRallies
 	}
 }
 
-// https://community.topcoder.com/stat?c=problem_solution&cr=294688&rd=4610&pm=1802
+// https://community.topcoder.com/tc?module=Static&d1=match_editorials&d2=srm161
