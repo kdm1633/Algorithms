@@ -1,13 +1,10 @@
 public class Inchworm {
-	int lcm(int a, int b) {
-		if(a > b) {
-			int temp = a;
-			a = b;
-			b = temp;
-		}
+	public int gcd(int a, int b) {
+		return b==0 ? a : gcd(b,a%b);
+	}
 
-		for (int i=b; ; i+=b)
-			if(i%a == 0) return i;
+	int lcm(int a, int b) {
+		return a*b / gcd(a,b);
 	}
 
 	public int lunchtime(int branch, int rest, int leaf) {
