@@ -3,12 +3,7 @@ public class UserId
 	String[] iu;
 
 	String delch(String s) {
-		while (s.indexOf(" ") != -1)
-			s = s.substring(0,s.indexOf(" ")) + s.substring(s.indexOf(" ")+1);
-		while (s.indexOf("'") != -1)
-			s = s.substring(0,s.indexOf("'")) + s.substring(s.indexOf("'")+1);
-
-		return s;
+		return s.replace(" ","").replace("'","");
 	}
 
 	boolean chkNotInUse(String s) {
@@ -28,7 +23,7 @@ public class UserId
 
 		char[] c = (first + middle + last).toCharArray();
 		for (int i=0; i < c.length; i++)
-			if (c[i]!=32 && c[i]!=39 && !(c[i]>=97 && c[i]<=122)) return "BAD DATA";
+			if (c[i]!=' ' && c[i]!='\'' && !(c[i]>='A' && c[i]<='z')) return "BAD DATA";
 
 		String s = "" + first.charAt(0) + last;
 		if (s.length() > 8) s = s.substring(0,8);
@@ -43,10 +38,10 @@ public class UserId
 		s = "" + first.charAt(0) + last;
 		if (s.length() > 6) s = s.substring(0,6);
 
-		for (int i=1; i < 100; i++) {
-			String digit = (i < 10) ? "0"+i : ""+i;
-			if(chkNotInUse(s+digit)) return s+digit;
-		}
+		for (int i=1; i < 10; i++)
+			if (chkNotInUse(s+"0"+i)) return s+"0"+i;
+		for (int i=10; i < 51; i++)
+			if (chkNotInUse(s+i)) return s+i;
 
 		return "BAD DATA";
 	}
