@@ -1,12 +1,12 @@
 public class ParallelSpeedup
 {
 	public int numProcessors(int k, int overhead) {
-		int num=1, min=k;
-		for (int i=2, j=0, d=1; ; i++, j += d++) {
-			int cycle = (k%i==0) ? k/i : k/i+1;
-			int time = cycle + (j+d)*overhead;
-			if(time >= min) return num;
-			num = i; min = time;
+		int min = k;
+		for (int num = 2, j = 0, d = 1; ; num++, j += d++) {
+			int cycleTime = (k%num == 0) ? k/num : k/num+1;
+			int total = cycleTime + (j+d)*overhead;
+			if(min <= total) return num-1;
+			min = total;
 		}
 	}
 
