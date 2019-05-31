@@ -3,16 +3,12 @@ import java.util.Arrays;
 public class MissingLetters
 {
 	public String getMissingLetters(String sentence) {
-		sentence = sentence.toLowerCase();
+		sentence = sentence.toUpperCase();
 
 		String res = "";
-		for (char c='a'; c <= 'z'; c++)
+		for (char c = 'A'; c <= 'Z'; c++)
 			if (sentence.indexOf(c) == -1)
 				res += c;
-
-		char[] ch = res.toCharArray();
-		Arrays.sort(ch);
-		res = new String(ch).toUpperCase();
 
 		return res;
 	}
