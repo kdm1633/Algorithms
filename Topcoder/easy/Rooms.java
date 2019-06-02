@@ -18,7 +18,7 @@ public class Rooms
 		}
 
 		pos[start] = true;
-LOOP:	for (char d : doors.toCharArray()) {
+LOOP:		for (char d : doors.toCharArray()) {
 			boolean[] next = new boolean[n];
 			for (int i = 0; i < n; i++) {
 				if (pos[i]) {
