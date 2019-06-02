@@ -1,30 +1,44 @@
 import java.util.Arrays;
-import java.util.HashSet;
 
 public class Rooms
 {
 	public int[] finalRooms(String[] rooms, String doors, int start) {
-		HashSet<Integer> set = new HashSet<Integer>();
-		set.add(start);
-		for (char d : doors.toCharArray()) {
-			HashSet<Integer> s2 = new HashSet<Integer>();
-			for (int r : set) {
-				for (String adj : rooms[r].split(" ")) {
-					if (adj.charAt(0) == d) {
-						for (String str : adj.substring(2).split(","))
-							s2.add(Integer.parseInt(str));
-					}
-				}
+		int n = rooms.length;
+		boolean[] pos = new boolean[n];
+		int[][][] nrooms = new int[n][91][];
+
+		for (int i = 0; i < n; i++) {
+			String[] sp = rooms[i].split(" ");
+			for (int j = 0; j < sp.length; j++) {
+				String[] d = sp[j].substring(2).split(",");
+				nrooms[i][sp[j].charAt(0)] = new int[d.length];
+				for (int k = 0; k < d.length; k++)
+					nrooms[i][sp[j].charAt(0)][k] = Integer.parseInt(d[k]);
 			}
-			set = s2;
 		}
 
-		int[] res = new int[set.size()];
-		int idx=0;
-		for (int s : set)
-			res[idx++] = s;
+		pos[start] = true;
+LOOP:	for (char d : doors.toCharArray()) {
+			boolean[] next = new boolean[n];
+			for (int i = 0; i < n; i++) {
+				if (pos[i]) {
+					if (nrooms[i][d] == null) {pos = next; break LOOP;}
+					for (int k = 0; k < nrooms[i][d].length; k++)
+						next[nrooms[i][d][k]] = true;
+				}
+			}
+			pos = next;
+		}
+		
+		int cnt = 0;
+		for (int i = 0; i < n; i++)
+			if (pos[i]) cnt++;
+		
+		int[] res = new int[cnt];
 
-		Arrays.sort(res);
+		cnt = 0;
+		for (int i = 0; i < n; i++)
+			if (pos[i]) res[cnt++] = i;
 
 		return res;
 	}
@@ -39,4 +53,4 @@ public class Rooms
 	}
 }
 
-// https://community.topcoder.com/stat?c=problem_solution&cr=7445961&rd=4700&pm=1095
+// https://www.topcoder.com/tc?module=Static&d1=match_editorials&d2=tco03_qual_rd_1
