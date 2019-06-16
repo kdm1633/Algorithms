@@ -1,19 +1,15 @@
 public class JarBox
 {
 	public int numJars(int radius, int woodlength) {
-		int m = (woodlength - radius*2*2)/2/(radius*2);
+		int m = 1;
 
 		for (int row=2; ; row++) {
-			double width = woodlength - 2*(radius*2 + (row-1)*(2*radius*Math.sqrt(3)*0.5));
-			width /= 2;
-
-			int a = (int)width/(radius*2);
-			int b = (width%(radius*2) >= radius) ? a : a-1;
-			int aa = a * ((row-1)/2+1);
-			if(aa == 0) break;
-			int bb = b * (row/2);
-
-			m = Math.max(m,aa+bb);
+			double h = 2*radius + (row-1)*Math.sqrt(3)*radius;
+			double w = (woodlength - 2*h) / 2;
+			if (w <= 0) break;
+			int wnum = (int)(w / (2*radius));
+			int tot = (w%(2*radius) >= radius) ? wnum * row : wnum*((row-1)/2+1) + (wnum-1)*(row/2);
+			m = Math.max(m,tot);
 		}
 
 		return m;
