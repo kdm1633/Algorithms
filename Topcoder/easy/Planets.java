@@ -1,84 +1,67 @@
-import java.text.DecimalFormat;
 import java.util.Arrays;
+import java.text.DecimalFormat;
 
 public class Planets
 {
-	int n;
-
-	double G = 6.673e-11;
-	double t = 3600;
-
-	double[][] v;
-	double[][] pos;
-	double[] m;
-	String[] sp;
-
-	double kvad(double a) {return a*a;}
-
-	void update(int nr) {
-		double[] f = new double[3];
-		for (int i=0; i < n; i++) {
-			if(i==nr) continue;
-
-			double dist = Math.sqrt(kvad(pos[i][0]-pos[nr][0]) + kvad(pos[i][1]-pos[nr][1]) + kvad(pos[i][2]-pos[nr][2]));
-			double F = G*m[i]*m[nr] / kvad(dist);
-			for (int k=0; k < 3; k++)
-				f[k] += F*((pos[i][k]-pos[nr][k])/dist); // 이 부분 설명
-		}
-
-		for (int j=0; j < 3; j++)
-			v[nr][j] += f[j]*t/m[nr];
-	}
-
-	void move(int nr) {
-		for (int j=0; j < 3; j++)
-			pos[nr][j] += v[nr][j]*t;
-	}
-
-	DecimalFormat df = new DecimalFormat("0.000");
-
-	String form(double a) {
-		boolean neg = a<0;
-		if(neg) a = -a;
-		int eksp=0;
-		while(Math.pow(10,eksp+1) <= a) eksp++;
-		a /= Math.pow(10,eksp);
-		String ans = df.format(a).replace(",",".");
-		if(ans.equals("10.000")) {ans="1.000"; eksp++;}
-		if(neg && !ans.equals("0.000")) ans = "-"+ans;
-		ans = ans+"E"+eksp;
-		return ans;
-	}
-
 	public String[] locations(String[] planets, int time) {
-		n = planets.length;
-		v = new double[n][3];
-		pos = new double[n][3];
-		m = new double[n];
+		double G = 6.673E-11;
+		double t = 3600;
 
-		for (int i=0; i < n; i++) {
-			sp = planets[i].split(" ");
-			pos[i][0] = Double.parseDouble(sp[0]);
-			pos[i][1] = Double.parseDouble(sp[1]);
-			pos[i][2] = Double.parseDouble(sp[2]);
+		int n = planets.length;
+
+		double[] f = new double[3];
+		double[] m = new double[n];
+		double[][] v = new double[n][3];
+		double[][] p = new double[n][3];
+		
+		for (int i = 0; i < n; i++) {
+			String[] sp = planets[i].split(" ");
+			p[i][0] = Double.parseDouble(sp[0]);
+			p[i][1] = Double.parseDouble(sp[1]);
+			p[i][2] = Double.parseDouble(sp[2]);
 			v[i][0] = Double.parseDouble(sp[3]);
 			v[i][1] = Double.parseDouble(sp[4]);
 			v[i][2] = Double.parseDouble(sp[5]);
 			m[i] = Double.parseDouble(sp[6]);
 		}
 
-		for (int i=0; i < time; i++) {
-			for (int j=0; j < n; j++)
-				update(j);
-			for (int j=0; j < n; j++)
-				move(j);
+		for (int i = 0; i < time; i++) {
+			for (int j = 0; j < n; j++) {
+				for (int k = 0; k < n; k++) {
+					if (j == k) continue;
+					double xd = p[k][0] - p[j][0];
+					double yd = p[k][1] - p[j][1];
+					double zd = p[k][2] - p[j][2];
+					double d = Math.sqrt(xd*xd + yd*yd + zd*zd);
+					double F = (G*m[k]*m[j]) / (d*d);
+					f[0] = F*(xd/d);
+					f[1] = F*(yd/d);
+					f[2] = F*(zd/d);
+					for (int l = 0; l < 3; l++)
+						v[j][l] += f[l]/m[j]*t;
+				}
+			}
+			for (int j = 0; j < n; j++)
+				for (int l = 0; l < 3; l++)
+					p[j][l] += v[j][l]*t;
 		}
 
-		String[] svar = new String[n];
-		for (int i=0; i < n; i++)
-			svar[i] = form(pos[i][0]) + " " + form(pos[i][1]) + " " + form(pos[i][2]);
+		String[] res = new String[n];
 
-		return svar;
+		for (int i = 0; i < n; i++) {
+			res[i] = "";
+			for (int j = 0; j < 3; j++) {
+				if(j != 0) res[i] += " ";
+				String s = new DecimalFormat("0.000E0").format(p[i][j]);
+				if (Math.abs(p[i][j]) < 1)
+					s = new DecimalFormat("0.000").format(p[i][j]) + "E0";
+				if (s.equals("-0.000E0"))
+					s = "0.000E0";
+				res[i] += s;
+			}
+		}
+
+		return res;
 	}
 
 	public static void main(String[] args) {
@@ -92,4 +75,6 @@ public class Planets
 	}
 }
 
+// References
+// https://www.topcoder.com/tc?module=Static&d1=match_editorials&d2=tco03_online_rd_1
 // https://community.topcoder.com/stat?c=problem_solution&cr=261024&rd=4702&pm=1522
