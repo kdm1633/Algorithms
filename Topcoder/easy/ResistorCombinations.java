@@ -72,4 +72,5 @@ public class ResistorCombinations
 	}
 }
 
+// References
 // https://community.topcoder.com/tc?module=Static&d1=match_editorials&d2=srm171
