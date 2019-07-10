@@ -47,9 +47,8 @@ public class ResistorCombinations
 	}
 
 	public double closestValue(String[] resistances, double target) {
-		res = Double.MAX_VALUE;
-		closest = Double.MAX_VALUE;
 		t = target;
+		closest = res = Double.MAX_VALUE;
 
 		ArrayList<Double> r = new ArrayList<Double>();
 		for (int i = 0; i < resistances.length; i++)
