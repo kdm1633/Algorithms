@@ -114,7 +114,7 @@ public class UndergroundVault
 //			String[] x = rooms[i].split(",");
 //
 //			for (String s : x)
-//				if(s != "") d[i][Integer.parseInt(s)] = true;
+//				if(!s.equals("")) d[i][Integer.parseInt(s)] = true;
 //		}
 //
 //		int[] sol = new int[n];
