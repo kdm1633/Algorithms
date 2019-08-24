@@ -2,35 +2,32 @@ import java.util.Arrays;
 
 public class MineField
 {
-	int[] dy = {-1, -1, -1,  0, 0,  1, 1, 1};
-	int[] dx = {-1,  0,  1, -1, 1, -1, 0, 1};
-
 	public String[] getMineField(String mineLocations) {
 		char[][] board = new char[9][9];
-		int[] r = new int[mineLocations.length()/5];
-		int[] c = new int[mineLocations.length()/5];
 
-		for (int i=0; i < 9; i++)
-			for (int j=0; j < 9; j++)
+		for (int i = 0; i < 9; i++)
+			for (int j = 0; j < 9; j++)
 				board[i][j] = '0';
-		
-		for (int i=1,j=0; i < mineLocations.length(); i+=5) {
-			r[j] = mineLocations.charAt(i)-'0';
-			c[j++] = mineLocations.charAt(i+2)-'0';
-			board[mineLocations.charAt(i)-'0'][mineLocations.charAt(i+2)-'0'] = 'M';
+
+		for (int i = 1; i < mineLocations.length(); i+=5) {
+			int a = mineLocations.charAt(i) - '0';
+			int b = mineLocations.charAt(i+2) - '0';
+			board[a][b] = 'M';
 		}
 
-		for (int i=0; i < r.length; i++) {
-			for (int k=0; k < 8; k++) {
-				int r1 = r[i]+dy[k];
-				int c1 = c[i]+dx[k];
-				if (r1>=0 && c1>=0 && r1<9 && c1<9 && board[r1][c1]!='M')
-					board[r1][c1]++;
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[0].length; j++) {
+				if (board[i][j] == 'M') continue;
+				for (int r = i-1; r <= i+1; r++) {
+					if (r<0 || r>=9) continue;
+					for (int c = j-1; c <= j+1; c++)
+						if (c>=0 && c<9 && board[r][c] == 'M') board[i][j]++;
+				}
 			}
 		}
 
 		String[] res = new String[9];
-		for (int i=0; i < 9; i++)
+		for (int i = 0; i < 9; i++)
 			res[i] = String.valueOf(board[i]);
 
 		return res;
