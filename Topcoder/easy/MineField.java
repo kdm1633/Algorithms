@@ -17,11 +17,12 @@ public class MineField
 
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[0].length; j++) {
-				if (board[i][j] == 'M') continue;
-				for (int r = i-1; r <= i+1; r++) {
-					if (r<0 || r>=9) continue;
-					for (int c = j-1; c <= j+1; c++)
-						if (c>=0 && c<9 && board[r][c] == 'M') board[i][j]++;
+				if (board[i][j] == 'M') {
+					for (int r = i-1; r <= i+1; r++) {
+						if (r<0 || r>=9) continue;
+						for (int c = j-1; c <= j+1; c++)
+							if (c>=0 && c<9 && board[r][c] != 'M') board[r][c]++;
+					}
 				}
 			}
 		}
