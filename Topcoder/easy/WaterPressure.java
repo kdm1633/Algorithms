@@ -3,8 +3,8 @@ import java.util.ArrayList;
 public class WaterPressure
 {
 	int[] dy = {-1,0,1,0};
-	int[] dx = { 0,1,0,-1};
-	
+	int[] dx = {0,1,0,-1};
+
 	class Point {
 		int x,y;
 
@@ -13,58 +13,60 @@ public class WaterPressure
 			this.y = y;
 		}
 	}
-	
+
 	public int howLong(String[] layout) {
 		int r = layout.length;
 		int c = layout[0].length();
-		
-		boolean[][] flooded = new boolean[r][c];
-		boolean[][] checking = new boolean[r][c];
-		flooded[0][0] = true;
-		
-		int[][] li = new int[r][c];
-		for (int i=0; i < r; i++)
-			for (int j=0; j < c; j++)
-				li[i][j] = layout[i].charAt(j)-'0';
-	
+
+		boolean[][] reached = new boolean[r][c];
+
+		int[][] l = new int[r][c];
+		for (int i = 0; i < r; i++)
+			for (int j = 0; j < c; j++)
+				l[i][j] = layout[i].charAt(j)-'0';
+
 		ArrayList<Point> a = new ArrayList<Point>();
 		a.add(new Point(0,0));
 
-		double amount = 1;
-		double num = 0;
+		double amount = 2;
+		double squares = 0;
 		double pressure = amount/1;
-		
-		int sec=0;
-		for (; a.size() != 0; sec++) {
-			amount++;
 
+		int sec = 0;
+		while (true) {
 			int len = a.size();
-			for (int i=0; i < len; i++) {
+			for (int i = 0; i < len; i++) {
 				Point p = a.get(i);
-				if(pressure > li[p.y][p.x]) {
-					flooded[p.y][p.x] = true;
-					a.remove(i--); len--;
-					num++;
+				if(pressure > l[p.y][p.x]) {
+					l[p.y][p.x] = 40;
 
-					for (int j=0; j < 4; j++) {
+					for (int j = 0; j < 4; j++) {
 						int y = p.y + dy[j];
 						int x = p.x + dx[j];
-						if(y>=0 && x>=0 && y<r && x<c && li[y][x]!=40 && !flooded[y][x] && !checking[y][x]) {	// 40 = 'X'
-							checking[y][x] = true;
+						if(y>=0 && x>=0 && y<r && x<c && l[y][x]!=40 && !reached[y][x]) {	// 40 is equal to 'X'
+							reached[y][x] = true;
 							a.add(new Point(x,y));
 						}
 					}
+
+					squares++;
+					a.remove(i--); len--;
 				}
 			}
-			pressure = amount/num;
+
+			if (a.size() == 0) {sec--; break;}
+
+			pressure = amount/squares;
+
+			sec++; amount++;
 		}
 
-		// map checking
-		for (int i=0; i < r; i++)
-			for (int j=0; j < c; j++)
-				if(li[i][j]!=40 && !flooded[i][j]) return -1;
-		
-		return sec-2;
+		// checking map
+		for (int i = 0; i < r; i++)
+			for (int j = 0; j < c; j++)
+				if(l[i][j] != 40) return -1;
+
+		return sec;
 	}
 
 	public static void main(String[] args) {
