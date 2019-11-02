@@ -1,71 +1,53 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class WhichData
 {
-	int n;
-	double var, closest;
-	int[] sd, cd;
-	boolean[] used;
+	public int[] bestVariance(int[] sampleData, int varNum, int varDen) {
+		Arrays.sort(sampleData);
 
-	void calVar(int[] subset) {
-		double sum=0.0;
-		double num = (double)subset.length;
-		for (int i=0; i < subset.length; i++)
-			sum += subset[i];
-		
-		double mean = sum / num;
+		int sdLen = sampleData.length;
 
-		double varSum=0.0;
-		for (int i=0; i < subset.length; i++)
-			varSum += (mean-subset[i])*(mean-subset[i]);
-		
-		double variance = varSum / num;
+		double var = (double)varNum/varDen;
+		double closest = 10001;
+		int[] res = new int[0];
 
-		if (Math.abs(var-variance) == closest || Math.abs(Math.abs(var-variance)-closest)<=1e-9) {
-			int len = (subset.length < cd.length) ? subset.length : cd.length;
-			int i=0;
-			for (; i < len; i++) {
-				if(subset[i] > cd[i]) return;
-				else if(subset[i] < cd[i]) {
-					cd = new int[subset.length];
-					System.arraycopy(subset,0,cd,0,subset.length);
-					return;
+		for (int i = 1; i < Math.pow(2,sdLen); i++) {
+			double sum = 0.0;
+			double sumOfSquares = 0.0;
+			ArrayList<Integer> ss = new ArrayList<Integer>();
+			for (int j = i, k = 0; j > 0; j = j>>1,k++) {
+				if ((j&1) == 1) {
+					sum += sampleData[k];
+					sumOfSquares += sampleData[k]*sampleData[k];
+					ss.add(sampleData[k]);
 				}
 			}
-			cd = new int[subset.length];
-			System.arraycopy(subset,0,cd,0,subset.length);
+
+			double ssLen = ss.size();
+			double svar = sumOfSquares/ssLen - (sum*sum)/(ssLen*ssLen);
+			if (Math.abs(var-svar)==closest || Math.abs(Math.abs(var-svar)-closest)<=1e-9) {
+				boolean flag = false;
+				int len = (res.length < ss.size()) ? res.length : ss.size();
+				for (int j = 0; j < len; j++) {
+					if (res[j] < ss.get(j)) break;
+					else if (res[j] > ss.get(j)) {flag = true; break;}
+				}
+				if (flag) {
+					res = new int[ss.size()];
+					for (int j = 0; j < ss.size(); j++)
+						res[j] = ss.get(j);
+				}
+			}
+			else if (Math.abs(var-svar) < closest) {
+				closest = Math.abs(var-svar);
+				res = new int[ss.size()];
+				for (int j = 0; j < ss.size(); j++)
+					res[j] = ss.get(j);
+			}
 		}
-		else if (Math.abs(var-variance) < closest) {
-			closest = Math.abs(var-variance);
-			cd = new int[subset.length];
-			System.arraycopy(subset,0,cd,0,subset.length);
-		}
-	}
 
-	void makeSubset(int[] subset, int idx) {
-		for (int i=idx; i < n; i++) {
-			int[] ss = new int[subset.length+1];
-			System.arraycopy(subset,0,ss,0,subset.length);
-
-			ss[ss.length-1] = sd[i];
-			Arrays.sort(ss);
-			calVar(ss);
-
-			makeSubset(ss,i+1);
-		}
-	}
-
-	public int[] bestVariance(int[] sampleData, int varNum, int varDen) {
-		n = sampleData.length;
-		sd = sampleData;
-		used = new boolean[n];
-
-		var = (double)varNum/varDen;
-		closest=10001;
-
-		makeSubset(new int[0],0);
-		
-		return cd;
+		return res;
 	}
 
 	public static void main(String[] args) {
@@ -81,3 +63,6 @@ public class WhichData
 		System.out.println(Arrays.toString(w.bestVariance(new int[]{0,-13,15,5,5,-7,-6,-7,-8,4,-12,-13,14,9,-3,-1},9262,197)));
 	}
 }
+
+// References
+// https://www.topcoder.com/tc?module=Static&d1=match_editorials&
