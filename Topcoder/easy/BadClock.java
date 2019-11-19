@@ -1,13 +1,13 @@
 public class BadClock
 {
 	public double nextAgreement (String trueTime, String skewTime, int hourlyGain) {
-		String[] tt = trueTime.split(":");
-		String[] st = skewTime.split(":");
-		double tsec = Double.parseDouble(tt[0])*3600 + Double.parseDouble(tt[1])*60 + Double.parseDouble(tt[2]);
-		double ssec= Double.parseDouble(st[0])*3600 + Double.parseDouble(st[1])*60 + Double.parseDouble(st[2]);
-	
-		if(hourlyGain > 0) return (tsec-ssec+3600*12)%(3600*12) / hourlyGain;
-		else return -1*(ssec-tsec+3600*12)%(3600*12) / hourlyGain;
+		double tSec = Double.parseDouble(trueTime.substring(0,2))*3600 + Double.parseDouble(trueTime.substring(3,5))*60 + Double.parseDouble(trueTime.substring(6));
+		double sSec = Double.parseDouble(skewTime.substring(0,2))*3600 + Double.parseDouble(skewTime.substring(3,5))*60 + Double.parseDouble(skewTime.substring(6));
+
+		double sum = (hourlyGain < 0) ? sSec - tSec : tSec - sSec;
+		if (sum < 0) sum += 43200;	// 12 hours are 43,200 seconds.
+
+		return Math.abs(sum / hourlyGain);
 	}
 
 	public static void main(String[] args) {
@@ -18,9 +18,7 @@ public class BadClock
 		System.out.println(b.nextAgreement("03:03:02","03:01:47",5));
 		System.out.println(b.nextAgreement("03:03:02","03:01:47",-5));
 		System.out.println(b.nextAgreement("07:08:09","09:08:07",-321));
-		System.out.println(b.nextAgreement("11:59:59", "12:00:00", 3600));
-		System.out.println(b.nextAgreement("11:59:59", "12:00:00", 1));
+		System.out.println(b.nextAgreement("11:59:59","12:00:00",3600));
+		System.out.println(b.nextAgreement("11:59:59","12:00:00",1));
 	}
 }
-
-// https://community.topcoder.com/stat?c=problem_solution&cr=266685&rd=4665&pm=1969
