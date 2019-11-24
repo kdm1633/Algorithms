@@ -8,7 +8,10 @@ public class WordForm { // The problem name is Stemmer.
 		for (int i=1; i < word.length(); i++) {
 			c = word.charAt(i);
 			if (c=='A' || c=='E' || c=='I' || c=='O' || c=='U') {
-				if(consonant) {res += "V"; consonant = false;}
+				if(consonant) {
+					res += "V";
+					consonant = false;
+				}
 			}
 			else if (c=='Y' && consonant) {
 				res += "V";
