@@ -5,7 +5,7 @@ public class WordForm { // The problem name is Stemmer.
 		String res = (c=='A' || c=='E' || c=='I' || c=='O' || c=='U') ? "V" : "C";
 		boolean consonant = (res.equals("C")) ? true : false;
 
-		for (int i=1; i < word.length(); i++) {
+		for (int i = 1; i < word.length(); i++) {
 			c = word.charAt(i);
 			if (c=='A' || c=='E' || c=='I' || c=='O' || c=='U') {
 				if(consonant) {
