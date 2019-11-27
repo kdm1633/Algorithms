@@ -1,88 +1,52 @@
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.TreeSet;
 
 public class T9Input {
-	String[] dic;
-	
-	String getNum(String s) {
-		String pn = "";
-		for (int i=0; i < s.length(); i++) {
-			char c = s.charAt(i);
-			if(c >= 'a' && c <= 'c') pn += "2";
-			else if(c >= 'd' && c <= 'f') pn += "3";
-			else if(c >= 'g' && c <= 'i') pn += "4";
-			else if(c >= 'j' && c <= 'l') pn += "5";
-			else if(c >= 'm' && c <= 'o') pn += "6";
-			else if(c >= 'p' && c <= 's') pn += "7";
-			else if(c >= 't' && c <= 'v') pn += "8";
-			else if(c >= 'w' && c <= 'z') pn += "9";
-		}
-    
-		String zero = "";
-		for (int i=0; i < dic.length; i++) {
-			if(dic[i].startsWith(pn+" ")) {
-				String sn = dic[i].substring(pn.length());
-				for (int j=0; j < sn.lastIndexOf(" " + s)/(pn.length()+1); j++)
-					zero += "0";
-				
-				break;
-			}
-		}
-
-		return pn+zero;
-	}
-
 	public String[] getKeypresses(String[] messages) {
-		TreeSet<String> ts = new TreeSet<String>();
-		for (int i=0; i < messages.length; i++) {
+		HashMap<String,TreeSet<String>> map = new HashMap<String,TreeSet<String>>();
+		HashMap dict = new HashMap();
+		for (int i = 0; i < messages.length; i++) {
 			String[] sp = messages[i].split(" ");
-			for (int j=0; j < sp.length; j++)
-				if(sp[j].length() > 0) ts.add(sp[j]);
-		}
-		
-		int idx=0;
-		dic = new String[ts.size()];
-		for (int i=0; i < dic.length; i++)
-			dic[i] = "";
-		
-		for (String s : ts) {
-			String pn = "";
-			for (int i=0; i < s.length(); i++) {
-				char c = s.charAt(i);
-				if(c >= 'a' && c <= 'c') pn += "2";
-				else if(c >= 'd' && c <= 'f') pn += "3";
-				else if(c >= 'g' && c <= 'i') pn += "4";
-				else if(c >= 'j' && c <= 'l') pn += "5";
-				else if(c >= 'm' && c <= 'o') pn += "6";
-				else if(c >= 'p' && c <= 's') pn += "7";
-				else if(c >= 't' && c <= 'v') pn += "8";
-				else if(c >= 'w' && c <= 'z') pn += "9";
-			}
-			for (int i=0; i < dic.length; i++) {
-				if(dic[i].startsWith(pn+ " ")) {dic[i] += " " +s; break;}
-				else if(dic[i].length() == 0) {dic[idx++] = pn + " " + s; break;}
+			for (int j = 0; j < sp.length; j++) {
+				String str = "";
+				for (int k = 0; k < sp[j].length(); k++) {
+					int num = 0;
+					char c = sp[j].charAt(k);
+					if (c <= 'c') num = 2;
+					else if (c <= 'f') num = 3;
+					else if (c <= 'i') num = 4;
+					else if (c <= 'l') num = 5;
+					else if (c <= 'o') num = 6;
+					else if (c <= 's') num = 7;
+					else if (c <= 'v') num = 8;
+					else num = 9;
+					str += num;
+				}
+				TreeSet<String> ts = (!map.containsKey(str)) ? new TreeSet<String>() : map.get(str);
+				ts.add(sp[j]);
+				map.put(str,ts);
+				dict.put(sp[j],str);
 			}
 		}
 
 		String[] res = new String[messages.length];
-		for (int i=0; i < res.length; i++)
-			res[i] = "";
-		
-		for (int i=0; i < messages.length; i++) {
-			String s = messages[i];
-			for (int j=0; j < s.length(); j++) {
-				char c = s.charAt(j);
-				
-				if(c == ' ') res[i] += '#';
-				else {
-					int k = s.indexOf(' ',j);
-					String word = (k != -1) ? s.substring(j,k) : s.substring(j);
-					res[i] += getNum(word);
-					
-					if(k == -1) break;
-					j = k-1;
+		for (int i = 0; i < messages.length; i++) {
+			String str = "";
+			for (int j = 0; j < messages[i].length(); j++) {
+				if (messages[i].charAt(j) == ' ') {
+					str += "#";
+					continue;
 				}
+
+				int j0 = j;
+				while (j+1 < messages[i].length() && messages[i].charAt(j+1) != ' ') j++;
+				String word = messages[i].substring(j0,j+1);
+				str += dict.get(word);
+				int hash = map.get(dict.get(word)).headSet(word).size();
+				while (hash-- > 0) str += "0";
 			}
+			res[i] = str;
 		}
 
 		return res;
