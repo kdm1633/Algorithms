@@ -1,49 +1,59 @@
 public class RepeatedSubstrings
 {
 	public String decompress(String compressed) {
-		char[] c = new char[256];
-		int[] q = new int[256];
-		int[] pos1 = new int[256];
-		int[] pos2 = new int[256];
+		String[] sp = compressed.split("\\s*[^0-9]+\\s*");
+		int[] p1 = new int[sp.length/2];
+		int[] p2 = new int[sp.length/2];
+		int[] op1 = new int[sp.length/2];
+		int[] op2 = new int[sp.length/2];
+		int[] subLen = new int[sp.length/2];
 
-		int qSize = 0, len = 0;
-		for (int i=0, j=0, k=0; i < compressed.length(); i++) {
-			if (compressed.charAt(i) == '&') {
-				qSize++;
-				q[k] = j;
+		int cnt1 = 0;
+		for (int i = 1, j = 0; i < sp.length; i+=2, j++) {
+			p1[j] = Integer.parseInt(sp[i]);
+			p2[j] = Integer.parseInt(sp[i+1]);
+			subLen[j] = sp[i].length() + sp[i+1].length();
+			cnt1 += p2[j] - p1[j] + 1;
+		}
 
-				int p1 = compressed.charAt(++i)-'0';
-				while(compressed.charAt(++i)>='0' && compressed.charAt(i)<='9') p1 = 10*p1 + compressed.charAt(i)-'0';
-				int p2 = compressed.charAt(++i)-'0';
-				while(i<compressed.length()-1 && compressed.charAt(i+1)>='0' && compressed.charAt(i+1)<='9') p2 = 10*p2 + compressed.charAt(++i)-'0';
-				for (int l=p1; l <= p2; l++)
-					c[j++] = '?';
+		int cnt2 = 0;
+		for (int i = 0; i < compressed.length(); i++) {
+			if ('A' <= compressed.charAt(i) || compressed.charAt(i) == ' ')
+				cnt2++;
+		}
 
-				pos1[k] = p1;
-				pos2[k] = p2;
+		char[] c = new char[cnt1 + cnt2];
+		for (int i = 0; i < c.length; i++)
+			c[i] = '?';
+
+		for (int i = 0, j = 0, k = 0; i < compressed.length(); i++, j++) {
+			if (('A' <= compressed.charAt(i) && compressed.charAt(i) <= 'Z') || compressed.charAt(i) == ' ') {
+				c[j] = compressed.charAt(i);
+				cnt2++;
+			}
+			else {
+				op1[k] = j;
+				op2[k] = j + p2[k] - p1[k];
+				i += subLen[k] + 1;
+				j += p2[k] - p1[k];
 				k++;
 			}
-			else c[j++] = compressed.charAt(i);
-
-			if(i == compressed.length()-1) len = j;
 		}
 
-		boolean changed = false;
-		for (int i=0; i < qSize; i++) {
-			for (int j = q[i], k = pos1[i]; k <= pos2[i]; j++,k++) {
-				if (c[j]=='?' && c[k]!='?') {
-					changed = true;
-					c[j] = c[k];
+		boolean flag = true;
+		while (flag) {
+			flag = false;
+			for (int i = 0; i < p1.length; i++) {
+				for (int j = op1[i], k = p1[i]; j <= op2[i]; j++, k++) {
+					if (c[j]=='?' && c[k]!='?') {
+						flag = true;
+						c[j] = c[k];
+					}
 				}
 			}
-			if(i==qSize-1 && changed) {changed = false; i=-1;}
 		}
 
-		char[] res = new char[len];
-		for (int i=0; i < len; i++)
-			res[i] = c[i];
-
-		return new String(res);
+		return String.valueOf(c);
 	}
 
 	public static void main(String[] args) {
@@ -56,6 +66,3 @@ public class RepeatedSubstrings
 		System.out.println(r.decompress("&5-9ABC&2-7DE&20-22&17-19F"));
 	}
 }
-
-// References
-// https://community.topcoder.com/stat?c=problem_solution&cr=144400&rd=4707&pm=2004
