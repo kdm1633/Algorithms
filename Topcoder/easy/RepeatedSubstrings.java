@@ -27,7 +27,7 @@ public class RepeatedSubstrings
 			c[i] = '?';
 
 		for (int i = 0, j = 0, k = 0; i < compressed.length(); i++, j++) {
-			if (('A' <= compressed.charAt(i) && compressed.charAt(i) <= 'Z') || compressed.charAt(i) == ' ') {
+			if ('A' <= compressed.charAt(i) || compressed.charAt(i) == ' ') {
 				c[j] = compressed.charAt(i);
 				cnt2++;
 			}
