@@ -4,14 +4,14 @@ public class ArithmeticSequenceDiv1 {
 		int min = 10000;
 		int maxGap = 0;
 
-		for (int i=0; i < n-1; i++)
+		for (int i = 0; i < n-1; i++)
 			if(Math.abs(x[i+1]-x[i]) > maxGap) maxGap = Math.abs(x[i+1]-x[i]);
 
-		for (int d=-maxGap; d <= maxGap; d++) {
-			for (int a=-200; a <= 200; a++) {
+		for (int d = -maxGap; d <= maxGap; d++) {
+			for (int a = -200; a <= 200; a++) {
 				int sum = 0;
-				int yi=a;
-				for (int i=0; i < n; i++) {
+				int yi = a;
+				for (int i = 0; i < n; i++) {
 					sum += Math.abs(yi-x[i]);
 					yi += d;
 				}
@@ -30,5 +30,6 @@ public class ArithmeticSequenceDiv1 {
 		System.out.println(a.findMinCost(new int[]{1,5,2,5}));
 		System.out.println(a.findMinCost(new int[]{11,33,22}));
 		System.out.println(a.findMinCost(new int[]{1,3,5,7,2,4,6}));
+		System.out.println(a.findMinCost(new int[]{100,0,100,0,100}));
 	}
 }
