@@ -1,4 +1,5 @@
-public class YahtzeeScore
+// #1
+public class YahtzeeScore		// This problem is equal to Yahtzee.
 {
 	public int maxPoints(int[] toss) {
 		int max=0;
@@ -20,3 +21,22 @@ public class YahtzeeScore
 		System.out.println(y.maxPoints(new int[]{5,3,5,3,3}));
 	}
 }
+
+// #2
+// public class YahtzeeScore
+// {
+// 	public int maxPoints(int[] toss) {
+// 		int max = 0;
+
+// 		for(int val = 1; val <= 6; val++) {
+// 			int sum = 0;
+
+// 			for (int i = 0; i < 5; i++)
+// 				if (val == toss[i]) sum += toss[i];
+
+// 			if (sum > max) max = sum;
+// 		}
+
+// 		return max;
+// 	}
+// }
